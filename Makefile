@@ -1,8 +1,8 @@
 AutomatedMakefile = am
 CC = g++
 
-FILES = 
-EXECUTABLE = 
+FILES = sortPlot.o
+EXECUTABLE = sortPlot.exe
 
 PROJECT_PATH = $(PROJECT_DIR)
 GTK_PATH = /$(DRIVE_LETTER)/MinGW/GTK
@@ -20,4 +20,5 @@ all: Lab09
 Lab09: 		$(FILES)
 		$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)	
 
-
+sortPlot.o:	sortPlot.h	sortPlot.cpp
+	$(COMPILE)	sortPlot.cpp
