@@ -35,9 +35,15 @@ T** Sort<T>::quickSort(T** items, int numItems, int (*compare) (T* one, T* two))
    //DO THIS
    //create a new array that will be sorted and returned
    //this is in case the original, unsorted array is also needed
-
-
-
+   if(!numItems==0)
+   {
+      //make new array here
+      T** items2;
+	  int first = 0;
+	  int last = numItems-1;
+	  return _quickSort(items2, first, last, compare);
+   }
+   return items;
 
 
 
@@ -56,7 +62,9 @@ void Sort<T>::_quickSort(T** items, int first, int last, int (*compare) (T* one,
    //make the necessary partition and recursive calls for quick sort
    if (first < last)
    {
-
+      pivotIndex = items->partition(items, first, last, compare);
+	  //recursive
+	  
 
 
 
@@ -411,4 +419,3 @@ int Sort<T>::insertLocation(T** items, T* item, int last, int (*compare) (T* one
 }
 
 #endif
-
