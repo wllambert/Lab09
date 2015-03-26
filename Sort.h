@@ -35,22 +35,15 @@ T** Sort<T>::quickSort(T** items, int numItems, int (*compare) (T* one, T* two))
    //DO THIS
    //create a new array that will be sorted and returned
    //this is in case the original, unsorted array is also needed
-   if(!numItems==0)
+   T** sorted = new T*[numItems];
+   for (int i = 0; i < numItems; i++)
    {
-      //make new array here
-      T** items2;
-	  int first = 0;
-	  int last = numItems-1;
-	  return _quickSort(items2, first, last, compare);
+	   sorted[i] = items[i];
    }
-   return items;
-
-
-
-
-
-
-
+   
+   _quickSort(sorted, 0, numItems-1, compare);
+   return sorted;
+   
 }
 
 template < class T >
@@ -60,22 +53,15 @@ void Sort<T>::_quickSort(T** items, int first, int last, int (*compare) (T* one,
 
    //DO THIS
    //make the necessary partition and recursive calls for quick sort
+   
    if (first < last)
    {
-      pivotIndex = items->partition(items, first, last, compare);
-	  //recursive
+      pivotIndex = partition(items, first, last, compare);
+	  _quickSort(items, first, pivotIndex - 1, compare);
+	  _quickSort(items, pivotIndex + 1, last, compare);
 	  
-
-
-
-
-
-
-
-
-
-
    }  
+   
 }  
 
 template < class T >
@@ -87,25 +73,27 @@ int Sort<T>::partition(T** items, int first, int last, int (*compare) (T* one, T
    //temp is used to swap elements in the array
    T* temp; 
 
-   //initially, choosePivot does nothing           
+   //initially, choosePivot does nothing    
+   
    choosePivot(items, first, last); 
+   T* pivot = items[first];
+   int lastS1 = first;
+   
+   for (int i = first + 1; i <= last; i++)
+   {
+	   if((*compare)(items[i],pivot) < 0)
+	   {
+		   lastS1++;
+		   temp = items[i];
+		   items[i] = items[lastS1];
+		   items[lastS1] = temp;
+	   }   
+   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
+   temp = items[first];
+   items[first] = items[lastS1];
+   items[lastS1] = temp;
+   return lastS1;
 
 }
 
@@ -115,12 +103,12 @@ void Sort<T>::choosePivot(T** items, int first, int last)
    //DO THIS
    //find a better item to be the partition than simply using the item in the first index
    //you will need to swap
-
-
-
-
-
-
+   int mid = ((first + last) / 2);
+   T* temp;
+   temp = items[first];
+   items[first] = items[mid];
+   items[mid] = temp;
+   
 
 }
 
